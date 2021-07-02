@@ -1,0 +1,24 @@
+version: '3.5'
+services:
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 4306:3306
+    volumes:
+      - ./mysql-dump:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ocaa
+      - DB_HOST=mysqldb
+      - DB_PORT=3306
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - ocaa
+
+networks:
+  ocaa:
+    name: ocaa
